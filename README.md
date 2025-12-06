@@ -789,9 +789,9 @@ The query processor receives queries from users, validates them, and retrieves r
 
 - Scikit-Learn:
 - "Python Scikit-Learn Tutorial." YouTube, uploaded by Codebasics, 18 Dec. 2018, <https://www.youtube.com/watch?v=6Q56r_fVqgw>.
-- "ChatGPT." OpenAI. Accessed April 1, 2024. https://openai.com/chatgpt.
+- "ChatGPT." OpenAI. https://openai.com/chatgpt.
 
 - Flask:
 - "Flask Tutorial." YouTube, uploaded by Corey Schafer, 4 Sept. 2018, <https://www.youtube.com/watch?v=6M3LzGmIAso>.
-- "ChatGPT." OpenAI. Accessed April 17, 2024. https://openai.com/chatgpt.
+- "ChatGPT." OpenAI. https://openai.com/chatgpt.
 

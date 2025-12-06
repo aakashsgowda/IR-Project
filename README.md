@@ -1,38 +1,4 @@
-# IR Project
-
-This repository contains a minimal information retrieval pipeline implemented with:
-- Scrapy for crawling (`Project/crawling`)
-- Scikit-Learn TF-IDF indexer (`Project/Scikit`)
-- Flask-based query UI (`Project/zFlask`)
-
-Quick start
-
-1. Create and activate a Python 3.10+ virtual environment (project includes a `.venv` example):
-```bash
-cd Project
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-2. Crawl a site (example uses Books to Scrape):
-```bash
-cd crawling
-python -m scrapy crawl generic_crawler -a start_url=https://books.toscrape.com -a max_pages=50 -a max_depth=3
-# Output: crawling/output_docs.jsonl
-```
-
-3. Build the TF-IDF index:
-```bash
-cd ../Scikit
-. ../.venv/bin/activate
-python indexer.py --docs ../crawling/output_docs.jsonl --out index_output
-# Output: Scikit/index_output/
-```
-
-4. Run the web UI:
-```bash
-cd ../zFlaskCS429-INFORMATION RETRIVAL PROJECT REPORT
+CS429-INFORMATION RETRIVAL PROJECT REPORT
 NAME: AAKASH SHIVANANDAPPA GOWDA
 CWID-A20548984
 
@@ -829,16 +795,3 @@ The query processor receives queries from users, validates them, and retrieves r
 - "Flask Tutorial." YouTube, uploaded by Corey Schafer, 4 Sept. 2018, <https://www.youtube.com/watch?v=6M3LzGmIAso>.
 - "ChatGPT." OpenAI. Accessed April 17, 2024. https://openai.com/chatgpt.
 
-
-. ../.venv/bin/activate
-python app.py
-# Open http://127.0.0.1:5000
-```
-
-Notes
-- `Scikit/index_output/` contains pickled vectorizer/matrix and JSON metadata used by the Flask app.
-- The crawler respects `robots.txt` by default. Adjust politeness in `crawling/crawling/settings.py`.
-- See `REPORT.md` for design, architecture, and next steps (embeddings, FAISS, query expansion).
-
-License
-- This project is provided as-is for educational purposes. Add a license file if you intend to release publicly.

@@ -136,43 +136,44 @@ The project successfully implements a web crawling, indexing, and query processi
 
 **Output Screenshots**
 
-**1-** A Scrapy based Crawler for downloading web documents in html format - content crawling: – Required: Initialize using seed URL/Domain, Max Pages, Max Depth
+**Output Screenshots (place images under `zFlask/screenshots/`)**
 
-![A screenshot of a computer program
+The UI screenshots for the Flask search interface are shown below. To include them in the README, save the PNG files into `zFlask/screenshots/` using the filenames listed and commit them. The README will reference the files at these relative paths so they render on GitHub.
 
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.001.png)
+- `zFlask/screenshots/01_home.png` — Search home page
+- `zFlask/screenshots/02_results_shakespeare.png` — Results page for query "shakespeare"
+- `zFlask/screenshots/03_query_light.png` — Search query example
+- `zFlask/screenshots/04_results_light.png` — Results page for query "light"
 
-![A screen shot of a computer
+Below are embedded references (they will show once you add the files above):
 
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.002.png)
+![Search Home](zFlask/screenshots/01_home.png)
 
-**2-** A Scikit-Learn based Indexer for constructing an inverted index in pickle format - search indexing: – Required: TF-IDF score/weight representation, Cosine similarity
+![Results — shakespeare](zFlask/screenshots/02_results_shakespeare.png)
 
-![A screen shot of a computer screen
+![Query example](zFlask/screenshots/03_query_light.png)
 
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.003.png)
+![Results — light](zFlask/screenshots/04_results_light.png)
 
-![A screen shot of a computer
+How to add the screenshots and commit them
 
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.004.png)
+```bash
+# create screenshots folder (from project root)
+mkdir -p zFlask/screenshots
+# copy your screenshot files into zFlask/screenshots/ and name them as above
+# example if the downloaded images are in Downloads/:
+cp ~/Downloads/your-shot-1.png zFlask/screenshots/01_home.png
+cp ~/Downloads/your-shot-2.png zFlask/screenshots/02_results_shakespeare.png
+cp ~/Downloads/your-shot-3.png zFlask/screenshots/03_query_light.png
+cp ~/Downloads/your-shot-4.png zFlask/screenshots/04_results_light.png
 
-![A screenshot of a computer
+# add and commit
+git add zFlask/screenshots/*.png
+git commit -m "Add UI screenshots"
+git push origin feature/ir-pipeline
+```
 
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.005.png)
-
-**3-** A Flask based Processor for handling free text queries in json format - query processing: – Required: Query validation/error-checking, Top-K ranked results
-
-![A screenshot of a computer
-
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.006.png)
-
-![A screenshot of a computer
-
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.007.png)
-
-![A screenshot of a computer
-
-Description automatically generated](Aspose.Words.3959ae7d-3b54-4f4d-9d26-2554a3956420.008.png)
+If you'd like, I can add these files for you if you upload the PNGs here or provide URLs where I can download them. Otherwise follow the steps above and the README will render the screenshots on GitHub.
 
 **Cautions**
 
@@ -356,6 +357,85 @@ The crawler starts from a given seed URL/Domain and follows links based on speci
 **Dependencies:**
 
 Scrapy 2.11+: Open-source web crawling framework.
+
+## Quickstart — How to run this project (macOS / zsh)
+
+Follow these commands from the project root (`Project/`). They create a clean virtual environment, install dependencies, run the crawler (example), build the index, and start the Flask UI.
+
+1) Create and activate a virtual environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+2) Install project dependencies
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+3) Run the Scrapy crawler (example)
+
+# Example: crawl `books.toscrape.com` (limits: pages/depth are examples)
+```bash
+cd crawling
+. ../.venv/bin/python -m scrapy crawl generic_crawler -a start_url=https://books.toscrape.com -a max_pages=50 -a max_depth=3
+# After the run, output JSONL is written to `../crawling/output_docs.jsonl` (or `output.json`/`output.html` depending on spider).
+cd ..
+```
+
+4) Build the TF-IDF index with the Scikit indexer
+
+```bash
+.venv/bin/python Scikit/indexer.py --docs crawling/output_docs.jsonl --out Scikit/index_output
+# This writes `Scikit/index_output/` containing:
+# - `tfidf_vectorizer.pkl` (the fitted TfidfVectorizer)
+# - `tfidf_matrix.pkl` (document-term matrix)
+# - `doc_meta.json`, `doc_order.json`, `inverted_index.json`
+```
+
+5) Start the Flask web UI (search interface)
+
+```bash
+.venv/bin/python zFlask/app.py
+# Open http://127.0.0.1:5000 in your browser.
+```
+
+6) Batch query (CSV) endpoint example
+
+```bash
+# POST a CSV file with columns `qid,query` to the `/search_csv` endpoint
+curl -F "file=@queries.csv" http://127.0.0.1:5000/search_csv -o results.csv
+```
+
+7) Git / publishing notes
+
+```bash
+# Push feature branch and create a PR on GitHub (recommended)
+git checkout -b feature/ir-pipeline
+git add -A && git commit -m "Add IR pipeline"
+git push -u origin feature/ir-pipeline
+# Then open GitHub and create a PR to merge into `main`.
+```
+
+Troubleshooting tips
+- If Scrapy imports fail, run the spider with `python -m scrapy` from the activated venv (shown above).
+- If you accidentally committed the virtualenv, remove it with:
+
+```bash
+git rm -r --cached .venv
+echo ".venv/" >> .gitignore
+git add .gitignore && git commit -m "Ignore virtualenv"
+```
+
+- If the Flask app cannot find the index files, ensure `Scikit/index_output/` exists and contains the required artifacts (`tfidf_vectorizer.pkl`, `tfidf_matrix.pkl`, `doc_order.json`, `doc_meta.json`).
+
+Optional: Docker (advanced)
+
+You can containerize the project for reproducible runs. Create a `Dockerfile` that: uses `python:3.11-slim`, copies source, installs `requirements.txt`, and runs the indexer and Flask app. Ask me and I will generate a minimal Dockerfile for you.
+
 
 2-A Scikit-Learn based Indexer for constructing an inverted index in pickle format - search indexing: – Required: TF-IDF score/weight representation, Cosine similarity
 

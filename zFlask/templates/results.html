@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Results for {{ query }}{% endblock %}
+
+{% block content %}
+<section class="results">
+    <h2>Results for: "{{ query }}"</h2>
+    <p>Showing {{ results|length }} of {{ total }} results (page {{ page }} of {{ total_pages }})</p>
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>URL</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ loop.index + (page-1)*per_page }}</td>
+                <td><a href="{{ r.url }}" target="_blank">{{ r.url }}</a></td>
+                <td>{{ '%.6f'|format(r.score) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a class="page-link" href="/search?q={{ query }}&k={{ per_page }}&page={{ page-1 }}">&laquo; Prev</a>
+        {% endif %}
+        {% for p in range(1, total_pages+1) %}
+        {% if p == page %}
+        <span class="page current">{{ p }}</span>
+        {% else %}
+        <a class="page-link" href="/search?q={{ query }}&k={{ per_page }}&page={{ p }}">{{ p }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if page < total_pages %} <a class="page-link"
+            href="/search?q={{ query }}&k={{ per_page }}&page={{ page+1 }}">Next &raquo;</a>
+            {% endif %}
+    </div>
+
+    <p><a href="/">Back to search</a></p>
+</section>
+{% endblock %}

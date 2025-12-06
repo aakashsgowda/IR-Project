@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+eggs/
+*.egg-info/
+
+# Virtual environment
+.venv/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Scrapy and crawling outputs
+/crawling/output.html
+/crawling/output.json
+/crawling/output_docs.jsonl
+
+# Scikit index artifacts
+/Scikit/index_output/
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Scikit index output and crawler outputs
+Scikit/index_output/
+Project/Scikit/index_output/
+Project/crawling/output_docs.jsonl
+Project/crawling/output.html
+Project/crawling/output.json

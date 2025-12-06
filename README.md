@@ -1,6 +1,6 @@
-CS429-INFORMATION RETRIVAL PROJECT REPORT
-NAME: AAKASH SHIVANANDAPPA GOWDA
-CWID-A20548984
+# CS429-INFORMATION RETRIVAL PROJECT REPORT
+# NAME: AAKASH SHIVANANDAPPA GOWDA
+# CWID-A20548984
 
 # ABSTRACT
 
@@ -154,26 +154,6 @@ Below are embedded references (they will show once you add the files above):
 ![Query example](zFlask/screenshots/03_query_light.png)
 
 ![Results — light](zFlask/screenshots/04_results_light.png)
-
-How to add the screenshots and commit them
-
-```bash
-# create screenshots folder (from project root)
-mkdir -p zFlask/screenshots
-# copy your screenshot files into zFlask/screenshots/ and name them as above
-# example if the downloaded images are in Downloads/:
-cp ~/Downloads/your-shot-1.png zFlask/screenshots/01_home.png
-cp ~/Downloads/your-shot-2.png zFlask/screenshots/02_results_shakespeare.png
-cp ~/Downloads/your-shot-3.png zFlask/screenshots/03_query_light.png
-cp ~/Downloads/your-shot-4.png zFlask/screenshots/04_results_light.png
-
-# add and commit
-git add zFlask/screenshots/*.png
-git commit -m "Add UI screenshots"
-git push origin feature/ir-pipeline
-```
-
-If you'd like, I can add these files for you if you upload the PNGs here or provide URLs where I can download them. Otherwise follow the steps above and the README will render the screenshots on GitHub.
 
 **Cautions**
 
